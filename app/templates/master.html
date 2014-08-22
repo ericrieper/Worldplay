@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Worldplay</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="static/css/base.css">
+	<link rel="stylesheet" href="static/css/skeleton.css">
+	<link rel="stylesheet" href="static/css/animate.css">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:100,700,400' rel='stylesheet' type='text/css'>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="static/css/layout.css">
+
+	<!-- Favicons
+	==================================================
+	<link rel="shortcut icon" href="static/img/favicon.ico">
+	<link rel="apple-touch-icon" href="static/img/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="static/img/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="static/img/apple-touch-icon-114x114.png">
+	 -->
+	 
+</head>
+<body>
+
+<div id="debug"></div>
+
+	<!-- Primary Page Layout
+	================================================== -->
+
+	<div id="mainContainer" class="container">
+		<div id="header">
+		<!--
+			<div class="sixteen columns">
+				<h1>Worldplay: {{title}}</h1>
+				<hr />
+			</div>
+		-->
+		</div>
+		<div id="activeContainer" class="animated fadeIn">
+				{% block content %}{% endblock %}
+		</div>
+	</div><!-- container -->
+	
+		<div id="bottomFunctions" class="hidden">
+			<div class="half"><button id="noButton" class="flatButton no wide">No</button></div>
+			<div class="half"><button id="yesButton" class="flatButton yes wide">Yes</button></div>
+		</div>
+
+
+
+<script src="static/js/zepto.min.js"></script>
+<script src="static/js/main.js"></script>
+<!-- End Document
+================================================== -->
+</body>
+</html>

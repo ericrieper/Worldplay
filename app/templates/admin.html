@@ -1,0 +1,99 @@
+{% extends "master.html" %}
+
+{% block content %}
+<div id="content">
+	<div class="eight columns alpha">
+		
+		<h2>Questions</h2>
+		
+		<div id="newQuestion">
+			<button onclick="display('newQuestionDiv')" class="flatButton yes">Add New Question</button>
+			<div id="newQuestionDiv" class="preFolded foldedForm animated fadeIn">
+				<form id="newQuestionForm" name="newQuestionForm">
+					<div class="shrinky">
+						<label for="regularInput">Question Text</label>
+						<input type="text" id="tokenTextInput" name="blurgh" class="wide"/>
+					</div>
+					<div class="tokenSliderContainer four columns alpha">
+						<div class="sliderInner no">
+							<h3>NO</h3>
+							<ul>
+							{% for token in tokens %}
+							<li>
+								<label><div id="nVal-{{token._id}}" class="tokenValueDisplay">0</div> {{ token.name }}</label>
+								<input type="range" name="n-{{ token._id }}" id="nSlider-{{ token._id }}" class="tokenValueInput wide" min="-5" max="5">
+							</li>
+							{% endfor %}
+							</ul>
+						</div>
+					</div>
+					
+					<div class="tokenSliderContainer four columns omega">
+						<div class="sliderInner yes">
+							<h3>YES</h3>
+							<ul>
+							{% for token in tokens %}
+							<li>
+								<label><div id="yVal-{{token._id}}" class="tokenValueDisplay">0</div> {{ token.name }}</label>
+								<input type="range" name="y-{{ token._id }}" id="ySlider-{{ token._id }}" class="tokenValueInput wide" min="-5" max="5">
+							</li>
+							{% endfor %}
+							</ul>
+						</div>
+					</div>
+
+				<button id="saveQuestion" class="flatButton editor">Save Question</button>
+				</form>
+			</div>
+		</div> <!-- END newQuestion DIV -->
+
+		<hr>
+
+		<ul>
+			{% for question in questions %}
+			<li>
+				<span id="drop-{{question._id}}" class="remover itemButton questionDel"><i class="fa fa-trash-o fa-lg"></i></span>
+				<!--<span id="edit-{{question._id}}" class="editor itemButton"><i class="fa fa-pencil fa-lg"></i></span>-->
+				{{ question.questionText }}<br/>
+				<ul>
+				{% for questionToken in question.questionTokens %}
+					<li>{% for token in tokens %}
+							{% if token._id|string == questionToken.tokenID|string %}
+								<div class="ynDisplay no">{{questionToken.tokenValueNo}}</div> <div class="ynDisplay yes">{{questionToken.tokenValueYes}}</div>
+								{{ token.name }}
+							{% endif %}{% endfor %}</li>
+						{% endfor %}
+				</ul>
+			</li>
+			{% endfor %}
+		</ul>
+	</div> <!-- END QUESTIONS COLUMN -->
+	
+	<div class="eight columns omega">
+		<h2>Tokens</h2>
+		<div id="newToken">
+			<button onclick="display('newTokenDiv')" class="flatButton yes">Add New Token</button>
+			<div id="newTokenDiv" class="preFolded foldedForm animated fadeIn">
+					<form id="newTokenForm" name="newQuestionForm">
+						<div class="shrinky">
+							<label for="tokenNameInput">Token Name</label>
+							<input type="text" id="tokenNameInput" name="name" class="wide">
+						</div><br>
+						<button id="saveToken" class="flatButton editor">Save Token</button>
+					</form>
+			</div>
+		</div>
+		<hr>
+		
+		<ul>
+			{% for token in tokens %}
+			<li>
+				<span id="drop-{{token._id}}" class="remover itemButton tokenDel"><i class="fa fa-trash-o fa-lg"></i></span>
+				{{ token.name }}
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+{% endblock %}

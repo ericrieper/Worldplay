@@ -1,0 +1,276 @@
+/*
+* Skeleton V1.2
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 6/20/2012
+*/
+
+/* Table of Content
+==================================================
+	#Site Styles
+	#Page Styles
+	#Media Queries
+	#Font-Face */
+
+/* #Helpers
+================================================== */
+.wide {
+	width: 100% !important;
+}
+.half{
+	width: 48% !important;
+	display: inline-block;
+}
+.center {
+	text-align: center;
+}
+.vertMid {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.hidden {
+	visibility: hidden;
+}
+.fRight {
+	float: right;
+}
+/* #Site Styles
+================================================== */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+	margin: 40px 0 90px;
+}
+
+#debug{
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    opacity: 0.5;
+    border: 1px solid rgba(0,0,0,0.4);
+    display: none;
+}
+.flatButton {
+	padding: 2px 8px 2px 8px;
+	color: #fff !important;
+	text-decoration: none;
+	font-family: 'Roboto','Helvetica','Arial', sans-serif !important;
+	font-weight: 500;
+	font-size: 3em;
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    margin: 0;
+    opacity: 0.66;
+}
+.flatButton:hover, .itemButton:hover {
+	opacity:1;
+}
+button:focus, input[type='range'] {
+  outline: none;
+}
+.yes {
+	background-color: #45bf64;
+}
+.no {
+	background-color: #FC5B3F;
+}
+#bottomFunctions {
+    position: fixed;
+    left: 0;
+    bottom: 0px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+	background-color: #fff;
+    width: 100%;
+    text-align: center;
+}
+
+.reverse {
+	color: #fff;
+	font-weight: 100;
+	background-color: #333;
+	padding: 10px;
+}
+
+/* #Page Styles
+================================================== */
+
+/* # ADMIN # */
+#newQuestion button, #newToken button {
+	font-size: 2em;
+}
+.tokenValueDisplay {
+	display: inline-block;
+	float: right;
+	background-color: rgba(0,0,0,0.5);
+	color: #fff;
+	font-weight: 900;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px;
+	border-radius: 2px;
+}
+.remover {
+	background-color: #FC5B3F;
+}
+.editor {
+	background-color: #3fcefd;
+}
+.itemButton {
+	padding: 4px;
+	color: #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	margin-right: 5px;
+	opacity: 0.66;
+}
+.foldedForm {
+	background-color: rgba(0,0,0,0.05);
+	border-radius: 2px;
+	xpadding: 10px;
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+form {
+	margin:0;
+	xpadding-right: 10px;
+}
+
+.shrinky {
+	width: auto;
+	padding: 5px 20px 0px 10px
+}
+
+input {
+		margin: 0px!important;
+}
+form > * {
+	width: 100%;
+}
+
+.sliderInner {
+	margin: 10px;
+	color: #fff !important;
+	border-radius: 2px;
+}
+.sliderInner h3 {
+	color: #fff;
+	font-weight: 100;
+	xpadding-bottom: 0px;
+	xmargin-bottom: 0px;
+	background-color: #333;
+}
+.sliderInner > * {
+	padding: 10px;
+}
+
+.ynDisplay {
+	display: inline-block;
+	color: #fff;
+	font-weight: 900;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 20px;
+	border-radius: 2px;
+	opacity: 0.4;
+
+}
+
+li label {
+	height: 30px;
+	line-height: 30px;
+}
+
+/* # GENERATION # */
+
+#cityVis {
+	text-align: middle;
+	width: 100%;
+	background-color: #f0f0f0;
+	border-bottom-radius: 4px;
+	
+}
+#cityVis ul {
+	padding: 10px 20px 10px 20px;
+}
+
+#cityVis ul li {
+	padding: 5px;
+	height: 25px;
+	background-color: rgba(0,0,0,0.2);
+	border-radius: 4px;
+}
+
+#cityVis ul li span {
+	display: block;
+	height: 100%;
+	background-color: #3fcefd;
+	white-space: nowrap;
+	overflow: visible;
+	width: 0%;
+	line-height: 25px;
+    -webkit-transition: width 1s;
+    transition: width 1s;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border-radius: 4px;
+	padding-left:5px;
+	padding-right: 10px;
+	text-align: right;
+	text-transform: uppercase;
+	font-weight: 900;
+	color: #fff;
+}
+
+#nameInput {
+	margin-right: 10px;
+}
+
+
+
+/* #Media Queries
+================================================== */
+
+	/* Smaller than standard 960 (devices and browsers) */
+	@media only screen and (max-width: 959px) {}
+
+	/* Tablet Portrait size to standard 960 (devices and browsers) */
+	@media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+	/* All Mobile Sizes (devices and browser) */
+	@media only screen and (max-width: 767px) {}
+
+	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+	@media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 479px) {}
+
+
+/* #Font-Face
+================================================== */
+/* 	This is the proper syntax for an @font-face file
+		Just create a "fonts" folder at the root,
+		copy your FontName into code below and remove
+		comment brackets */
+
+/*	@font-face {
+	    font-family: 'FontName';
+	    src: url('../fonts/FontName.eot');
+	    src: url('../fonts/FontName.eot?iefix') format('eot'),
+	         url('../fonts/FontName.woff') format('woff'),
+	         url('../fonts/FontName.ttf') format('truetype'),
+	         url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
+	    font-weight: normal;
+	    font-style: normal; }
+*/
