@@ -59,13 +59,18 @@ body {
 	padding: 2px 8px 2px 8px;
 	color: #fff !important;
 	text-decoration: none;
-	font-family: 'Roboto','Helvetica','Arial', sans-serif !important;
+	xfont-family: 'Roboto','Helvetica','Arial', sans-serif !important;
 	font-weight: 500;
 	font-size: 3em;
     -webkit-transition: opacity 0.2s;
     transition: opacity 0.2s;
     margin: 0;
     opacity: 0.66;
+    border-radius: 4px;
+    cursor: pointer;
+}
+i.flatButton{
+	font-size: 20px;
 }
 .flatButton:hover, .itemButton:hover {
 	opacity:1;
@@ -134,13 +139,11 @@ button:focus, input[type='range'] {
 .foldedForm {
 	background-color: rgba(0,0,0,0.05);
 	border-radius: 2px;
-	xpadding: 10px;
 	margin-bottom: 15px;
 	margin-top: 15px;
 }
 form {
 	margin:0;
-	xpadding-right: 10px;
 }
 
 .shrinky {
@@ -171,6 +174,9 @@ form > * {
 	padding: 10px;
 }
 
+ul.preFolded {
+	margin: 10px 0px 10px 0px;
+}
 .ynDisplay {
 	display: inline-block;
 	color: #fff;
@@ -181,15 +187,33 @@ form > * {
 	vertical-align: middle;
 	line-height: 20px;
 	border-radius: 2px;
-	opacity: 0.4;
+	opacity: 0.8;
 
 }
-
+li {line-height: normal}
 li label {
 	height: 30px;
 	line-height: 30px;
 }
 
+.buttonAside{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: inline-block;
+	width: 75px;
+	height:40px;
+	vertical-align: top;
+	float-left;
+	
+}
+.itemDesc {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: inline-block;
+	width: 72%;
+}
 /* # GENERATION # */
 
 #cityVis {
@@ -230,6 +254,7 @@ li label {
 	text-transform: uppercase;
 	font-weight: 900;
 	color: #fff;
+	font-weight: 15px;
 }
 
 #nameInput {

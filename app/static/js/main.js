@@ -1,4 +1,3 @@
-
 // On page ready
 Zepto(function($){
 	$('.preFolded').hide();
@@ -27,8 +26,8 @@ function begin(){
 
 // Ajax GET for dynamic content container
 function navigate(route){
-	$('#mainContainer').addClass('animated fadeOut');
-	$(' #mainContainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+	dip('#mainContainer',0);
+	$('#mainContainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 		$.get(route, function(response){
 			$('#activeContainer').html(response);
 			if(route == "/gen"){
@@ -40,24 +39,25 @@ function navigate(route){
 					$('#cityVis ul').append(tokenHTML);
 				}
 				displayQuestion();
-				dip('#mainContainer',1);
 				$('#bottomFunctions').addClass('animated fadeIn');
 				$('#bottomFunctions').removeClass('hidden');
 			}
 			else {updateContent(response)}
+			dip('#mainContainer',1);
 		})
-	});
+	})
 }
 
+// Fade element in / out
 function dip(el,dir){
 	
 	if (dir == 0){
-		$(el).addClass('fadeOut');
 		$(el).removeClass('fadeIn');
+		$(el).addClass('animated fadeOut');
 	}
 	else if (dir == 1){
 		$(el).removeClass('fadeOut');
-		$(el).addClass('fadeIn');
+		$(el).addClass('animated fadeIn junks');
 	}
 }
 
@@ -77,6 +77,7 @@ var currQuestion = 0;
 var totalQuestions = 0;
 var clientAnswers = [];
 var genName = "New City";
+var scores = [];
 
 
 function getQuestions(){
@@ -90,7 +91,6 @@ function getTokens(){
 	$.getJSON('/api/tokens', function(data){
 		tokens = data;
 		totalTokens = tokens.length;
-		//console.log(JSON.stringify(tokens));
 	})
 }
 
@@ -109,24 +109,25 @@ function displayQuestion() {
 }
 
 function answerQuestion(response){
-	data = {'question' : clientQuestions[currQuestion]._id.$oid, 'response' : response, 'score' : 0};
+	data = {'question' : clientQuestions[currQuestion]._id.$oid, 'response' : response};
 	clientAnswers.push(data);
 	debugClient();
 	updateBars();
 	currQuestion++;
 	if (currQuestion < totalQuestions){displayQuestion()}
-	//else {displaySubmit()}
+	else {displaySubmit()}
 }
 
 function updateBars(){
-	console.log('\n\n\nUpdating bars...\n\n\n');
-	var scores = [];
-	
-	for (i = 0; i < totalTokens; i++){
-		scores.push({'tID' : tokens[i]._id.$oid, 'score' : 0});
+	scores = [];
+	for (i = 0; i < totalTokens; i++){ // CREATE SCORE OBJECTS
+		scores.push({
+		'tID' : tokens[i]._id.$oid,
+			'name' : tokens[i].name,
+			'percent' : 0,
+			'score' : 0
+		});
 	}
-	
-	console.log('SCORES is: ' + JSON.stringify(scores));
 	
 	for (i = 0; i < clientAnswers.length; i++){ // FOR EACH ANSWERED QUESTION
 		for (t = 0; t < totalTokens; t++) { // FOR EACH TOKEN
@@ -141,39 +142,34 @@ function updateBars(){
 			}
 		}
 	}
-	console.log('--UPDATEDSCORES is: ' + JSON.stringify(scores));
 	// DONE TABULATING, UPDATE BARS
-	//console.log('scores is...' + JSON.stringify(scores));
-	
 	for (i = 0; i < scores.length; i++){ // FOR EACH SCORE
 		var maxScore = totalQuestions * 5;
-		var scorePercent = ((scores[i].score+maxScore) / (maxScore*2))*100; 
-		console.log('Trying to update ' + scores[i].tID + ' to ' + scorePercent);
+		var scorePercent = ((scores[i].score+maxScore) / (maxScore*2))*100;
+		scores[i].percent = scorePercent;
 		$('#bar-'+scores[i].tID + " span").width(scorePercent+'%')
 	}
-	
-	
-	
-}
-
-
-
-
-
+} // END of updateBars()
 
 
 function displaySubmit(){
-	navigate('/submit');
-	dip('#bottomFunctions',0);
+		
+		dip('#bottomFunctions',0);
+		$('#bottomFunctions').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			submitGen();	
+		})
+
 }
 
 /*-------------------SUBMISSION VIEW-------------------*/
 
 function submitGen(){
-	$.post('/api/gen/', JSON.stringify(data), function(response){
-		alert(response);
-		//location.reload();
+	var data = {'cityName' : genName, 'answers' : clientAnswers, 'scores' : scores};
+	$.post('/api/city', JSON.stringify(data), function(response){
+		var newLoc = "/city/"+response;
+		window.location.assign(newLoc);
 	})
+	
 }
 
 /*-------------------ADMIN VIEW-------------------*/
@@ -183,14 +179,36 @@ function display(eid){
 	$('#'+eid).toggle();
 }
 
+$('.qView').on('click',function(e){
+	eid = $(this).attr('id').slice(3);
+	console.log('eid: ' + eid);
+	display('qD-'+eid);
+})
+
 // Update slider box
 $('.tokenValueInput').change(function(e){
-	//console.log($(this).val());
 	var yn = $(this).attr('name').slice(0,1);
-	//console.log ("YN: " + yn);
 	var sliderID = $(this).attr('name').slice(2);
-	//console.log ("sliderID: " + sliderID);
 	$('#'+yn+'Val-'+sliderID).html($(this).val());
+})
+
+$('#qSlider').change(function(e){
+	var newAmount = $(this).val();
+	var data = JSON.stringify({'questions' : newAmount});
+	$('#qSliderDisp').html($(this).val());
+	
+	$.ajax({
+		url: '/totalQuestions',
+		type: 'PUT',
+		data: data,
+		success: function(data) {
+			$('#qSliderDisp').addClass('animated flash');			
+			$('#qSliderDisp').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+				$('#qSliderDisp').removeClass('flash');
+			})
+		}
+	});
+
 })
 
 //////////// QUESTIONS ///////////////////
@@ -204,16 +222,14 @@ $('#newQuestionForm').submit(function(e){
 		var itemID = $(item).attr('name').slice(2);
 		var itemValueNo = $(item).val();
 		var itemValueYes = $('#ySlider-'+itemID).val();
-		//console.log('itemValueYes: ' + itemValueYes);
 		var newItem = {'tokenID' : itemID , 'tokenValueNo' : itemValueNo,  'tokenValueYes' : itemValueYes}
 		questionTokens.push(newItem);
 	})
 	
 	var data = {'questionText' : questionText, 'questionTokens' : questionTokens};
-	//console.log('data is: ' + JSON.stringify(data));
 	
 	$.post('/newQuestion', JSON.stringify(data), function(response){
-		alert(JSON.stringify(response));
+		//alert(JSON.stringify(response));
 		location.reload();
 	})
 })
@@ -228,10 +244,10 @@ $('#newTokenForm').submit(function(e){
 	var formData = JSON.stringify(data);
 	
 	$.post('/newToken', formData, function(response){
-		alert(JSON.stringify(response));
+		//alert(JSON.stringify(response));
 		location.reload();
 	})
-	//console.log('Form data is: ' + formData);
+
 })
 
 // Remove existing TOKEN from DB
@@ -242,11 +258,12 @@ $('.remover').on('click',function(e){
 	var resourceType;
 	if ($(this).hasClass("tokenDel")){resourceType = "token"}
 	else if ($(this).hasClass("questionDel")){ resourceType = "question"}
+	else if ($(this).hasClass("cityDel")){ resourceType = "city"}
 	$.ajax({
 	    url: '/api/'+resourceType+'/'+dropID,
 	    type: 'DELETE',
 	    success: function(result) {
-	        alert('Response: ' +result);
+	        //alert('Response: ' +result);
 	        location.reload();
 	    }
 	});

@@ -2,12 +2,11 @@
 
 {% block content %}
 <div id="content">
-	<div class="eight columns alpha">
+	<div class="eight columns">
 		
-		<h2>Questions</h2>
+		<h2>Questions <i onclick="display('newQuestionDiv')" class="fa fa-plus flatButton yes"></i></h2>
 		
 		<div id="newQuestion">
-			<button onclick="display('newQuestionDiv')" class="flatButton yes">Add New Question</button>
 			<div id="newQuestionDiv" class="preFolded foldedForm animated fadeIn">
 				<form id="newQuestionForm" name="newQuestionForm">
 					<div class="shrinky">
@@ -45,17 +44,21 @@
 				<button id="saveQuestion" class="flatButton editor">Save Question</button>
 				</form>
 			</div>
-		</div> <!-- END newQuestion DIV -->
+		</div> {# ---END of NEW QUESTION div--- #}
 
 		<hr>
 
 		<ul>
 			{% for question in questions %}
 			<li>
-				<span id="drop-{{question._id}}" class="remover itemButton questionDel"><i class="fa fa-trash-o fa-lg"></i></span>
-				<!--<span id="edit-{{question._id}}" class="editor itemButton"><i class="fa fa-pencil fa-lg"></i></span>-->
-				{{ question.questionText }}<br/>
-				<ul>
+				<div class="buttonAside">
+					<span id="drop-{{question._id}}" class="remover itemButton questionDel"><i class="fa fa-trash-o fa-lg"></i></span>
+					<span id="qV-{{question._id}}" class="editor itemButton qView"><i class="fa fa-eye fa-lg"></i></span>
+				</div>
+				<div class="itemDesc">
+					{{ question.questionText }}
+				</div>
+				<ul class="preFolded animated fadeIn" id="qD-{{ question._id }}">
 				{% for questionToken in question.questionTokens %}
 					<li>{% for token in tokens %}
 							{% if token._id|string == questionToken.tokenID|string %}
@@ -65,14 +68,14 @@
 						{% endfor %}
 				</ul>
 			</li>
+			<hr class="hidden"/>
 			{% endfor %}
 		</ul>
-	</div> <!-- END QUESTIONS COLUMN -->
-	
-	<div class="eight columns omega">
-		<h2>Tokens</h2>
+	</div> {# ---END of QUESTIONS column--- #}	
+
+	<div class="four columns">
+		<h2>Tokens <i onclick="display('newTokenDiv')" class="fa fa-plus flatButton yes"></i></h2>
 		<div id="newToken">
-			<button onclick="display('newTokenDiv')" class="flatButton yes">Add New Token</button>
 			<div id="newTokenDiv" class="preFolded foldedForm animated fadeIn">
 					<form id="newTokenForm" name="newQuestionForm">
 						<div class="shrinky">
@@ -93,7 +96,33 @@
 			</li>
 			{% endfor %}
 		</ul>
+	</div> {# ---END of TOKENS column--- #}
+	
+	<div class="four columns">
+		<h2>Cities</h2>
+		<hr>
+		
+		<ul>
+			{% for city in cities %}
+			<li>
+				<span id="drop-{{city._id}}" class="remover itemButton cityDel"><i class="fa fa-trash-o fa-lg"></i></span>
+				<a href="/city/{{city._id}}" target="_blank">{{ city.cityName }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div> {# ---END of CITIES column--- #}
+	
+	<div class="sixteen columns">
+		<h2>Additional Settings</h2>
+		<hr>
 	</div>
+	<div class="one-third column">
+		<p>
+			<label><div id="qSliderDisp" class="tokenValueDisplay">{{ rounds }}</div>Number of questions asked</label>
+			<input type="range" name="qSlider" id="qSlider" class="tokenValueInput wide" min="1" max="{{ questions|length }}" value="{{ rounds }}">
+		</p>
+	</div>
+	
 </div>
 
 {% endblock %}

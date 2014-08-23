@@ -8,9 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Worldplay</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="description" content="Generate a city based on your decisions.">
 
 	<!-- Mobile Specific Metas
   ================================================== -->
@@ -18,20 +16,22 @@
 
 	<!-- CSS
   ================================================== -->
-	<link rel="stylesheet" href="static/css/base.css">
-	<link rel="stylesheet" href="static/css/skeleton.css">
-	<link rel="stylesheet" href="static/css/animate.css">
+	<link rel="stylesheet" href="/static/css/base.css">
+	<link rel="stylesheet" href="/static/css/skeleton.css">
+	<link rel="stylesheet" href="/static/css/animate.css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:100,700,400' rel='stylesheet' type='text/css'>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="static/css/layout.css">
+	<link rel="stylesheet" href="/static/css/layout.css">
 
-	<!-- Favicons
-	==================================================
-	<link rel="shortcut icon" href="static/img/favicon.ico">
-	<link rel="apple-touch-icon" href="static/img/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="static/img/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="static/img/apple-touch-icon-114x114.png">
-	 -->
+	
+	{% if title == "City View" %}
+		<title>Worldplay: {{city.cityName}}</title>
+		<meta property="og:title" content="Worldplay: {{city.cityName}}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="http://107.170.32.230:5000/city/{{ city._id }}" />
+	{% else %}
+		<title>Worldplay</title>
+	{% endif %}
 	 
 </head>
 <body>
@@ -42,28 +42,21 @@
 	================================================== -->
 
 	<div id="mainContainer" class="container">
-		<div id="header">
-		<!--
-			<div class="sixteen columns">
-				<h1>Worldplay: {{title}}</h1>
-				<hr />
-			</div>
-		-->
-		</div>
+		<div id="header"></div>
 		<div id="activeContainer" class="animated fadeIn">
 				{% block content %}{% endblock %}
 		</div>
 	</div><!-- container -->
 	
-		<div id="bottomFunctions" class="hidden">
-			<div class="half"><button id="noButton" class="flatButton no wide">No</button></div>
-			<div class="half"><button id="yesButton" class="flatButton yes wide">Yes</button></div>
-		</div>
+	<div id="bottomFunctions" class="hidden">
+		<div class="half"><button id="noButton" class="flatButton no wide">No</button></div>
+		<div class="half"><button id="yesButton" class="flatButton yes wide">Yes</button></div>
+	</div>
 
 
 
-<script src="static/js/zepto.min.js"></script>
-<script src="static/js/main.js"></script>
+<script src="/static/js/zepto.min.js"></script>
+<script src="/static/js/main.js"></script>
 <!-- End Document
 ================================================== -->
 </body>

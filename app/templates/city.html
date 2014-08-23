@@ -1,0 +1,35 @@
+{% extends "master.html" %}
+
+{% block content %}
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=545450948893517&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div id="content">
+
+	<div class="sixteen columns">
+		<div id="cityVis">
+			<h3 class="reverse">{{city.cityName}}</h3>
+			<ul id="statList">
+				{% for score in city.scores %}
+				<li><span style="width: {{score.percent}}%">{{ score.name }}</span></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="two-thirds column">
+		<p><div class="fb-like" data-href="http://107.170.32.230:5000/city/{{ city._id }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div></p>
+	</div>
+	<div class="one-third column">
+		<p><em>Create a new city?</em></p>
+		<p id="nameInput"><input type="text" id="cityName" placeholder="City Name" class="wide"></p>
+		<p class="center"><button id="beginButton" class="flatButton editor wide">Begin</button></p>
+	</div>
+</div>
+{% endblock %}
