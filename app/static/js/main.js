@@ -88,10 +88,6 @@ function getTokens(){
 	})
 }
 
-function debugClient(){
-	$('#debug').html(JSON.stringify(clientAnswers));
-}
-
 function displayQuestion() {
 	var q = $('#questionDisplay');
 	q.addClass('animated fadeOut');
