@@ -6,15 +6,15 @@ Zepto(function($){
 	$('#beginButton').on('click',function(e){
 		begin();
 	});
+
 	$('#noButton').on('click',function(e){answerQuestion(0)});
 	$('#yesButton').on('click',function(e){answerQuestion(1)});
 	
 	$('#cityName').keyup(function(e){
-    if(e.keyCode == 13)
-    {
-        begin();
-		e.preventDefault();
-    }
+	    if(e.keyCode == 13){
+	        begin();
+			e.preventDefault();
+	    }
 	})
 })
 
@@ -60,12 +60,6 @@ function dip(el,dir){
 		$(el).addClass('animated fadeIn junks');
 	}
 }
-
-function updateContent(data){
-	
-}
-
-
 
 
 /*-------------------GENERATION VIEW-------------------*/
@@ -228,7 +222,7 @@ $('#newQuestionForm').submit(function(e){
 	
 	var data = {'questionText' : questionText, 'questionTokens' : questionTokens};
 	
-	$.post('/newQuestion', JSON.stringify(data), function(response){
+	$.post('/api/question', JSON.stringify(data), function(response){
 		//alert(JSON.stringify(response));
 		location.reload();
 	})
@@ -243,7 +237,7 @@ $('#newTokenForm').submit(function(e){
 	var data = getFormData($('#newTokenForm'));
 	var formData = JSON.stringify(data);
 	
-	$.post('/newToken', formData, function(response){
+	$.post('/api/token', formData, function(response){
 		//alert(JSON.stringify(response));
 		location.reload();
 	})

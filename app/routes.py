@@ -22,7 +22,6 @@ def getScores(cityID):
 	cityData = cityColl.find_one({"_id" : ObjectId(cityID)})
 	answerCount = len(cityData['answers'])
 	scores = []
-	
 
 	# FOR EACH ANSWER
 	for answer in cityData['answers']:
@@ -48,8 +47,6 @@ def getScores(cityID):
 			        break
 			else:
 			    scores.append({'scoreTokenID' : currentTokenID, 'name' : tokenName, 'score' : scoreChange, 'percent' : getPercent(scoreChange,answerCount)})
-	#print "SCORES:\n"
-	#pp.pprint(scores)
 	return scores
 
 def getPercent(s,totalAnswers):
@@ -74,7 +71,7 @@ def index():
 def gen():
 	return render_template("gen.html")
 	
-### View City
+### View City ###############################
 @app.route('/city/<cityid>', methods=['GET'])
 def cityView(cityid):
 	data = cityColl.find_one({"_id" : ObjectId(cityid)})
@@ -122,7 +119,7 @@ def getQuestion(questionid):
 	return makeJSON(data)
 
 ### POST Add a new QUESTION ################
-@app.route('/newQuestion', methods=['POST'])
+@app.route('/api/question', methods=['POST'])
 def newQuestion():
 	content = request.get_json(force=True)
 	newPosition = questionColl.count()
@@ -137,7 +134,7 @@ def tokens():
 	return makeJSON(list(data))
 
 ### POST Add a new TOKEN ################
-@app.route('/newToken', methods=['POST'])
+@app.route('/api/token', methods=['POST'])
 def newToken():
 	content = request.get_json(force=True)
 	newPosition = tokenColl.count()
@@ -162,7 +159,7 @@ def removeToken(resourceType,tokenid):
 		else:
 			return 'DELETE received with wrong resource type.'
 			
-### PUT Update total questions asked ############
+### PUT Update total questions asked #########
 @app.route('/totalQuestions', methods=['PUT'])
 def totalQuestions():
 	content = request.get_json(force=True)

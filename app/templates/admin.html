@@ -3,9 +3,7 @@
 {% block content %}
 <div id="content">
 	<div class="eight columns">
-		
 		<h2>Questions <i onclick="display('newQuestionDiv')" class="fa fa-plus flatButton yes"></i></h2>
-		
 		<div id="newQuestion">
 			<div id="newQuestionDiv" class="preFolded foldedForm animated fadeIn">
 				<form id="newQuestionForm" name="newQuestionForm">
@@ -121,8 +119,7 @@
 			<label><div id="qSliderDisp" class="tokenValueDisplay">{{ rounds }}</div>Number of questions asked</label>
 			<input type="range" name="qSlider" id="qSlider" class="tokenValueInput wide" min="1" max="{{ questions|length }}" value="{{ rounds }}">
 		</p>
-	</div>
+	</div> {# ---END of SETTINGS column--- #}
 	
 </div>
-
 {% endblock %}
