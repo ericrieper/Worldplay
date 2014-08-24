@@ -57,7 +57,7 @@ function dip(el,dir){
 	}
 	else if (dir == 1){
 		$(el).removeClass('fadeOut');
-		$(el).addClass('animated fadeIn junks');
+		$(el).addClass('animated fadeIn');
 	}
 }
 
