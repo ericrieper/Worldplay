@@ -1,3 +1,5 @@
+*Note: This was produced as a response to a programming assessment assignment.*
+
 Worldplay
 ========
 
